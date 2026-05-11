@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Http\Requests\StoreServiceRequest;
 
 class ServiceController extends Controller
 {
@@ -22,13 +23,8 @@ class ServiceController extends Controller
     }
 
     // Save new service
-    public function store(Request $request)
+    public function store(StoreServiceRequest $request)
     {
-        $request->validate([
-            'name'             => 'required|string|max:255',
-            'duration_minutes' => 'required|integer|min:15',
-            'price'            => 'required|numeric|min:0',
-        ]);
 
         $provider = auth()->user()->providerProfile;
 

@@ -7,31 +7,26 @@ use App\Models\ProviderProfile;
 use App\Models\Availability;
 use App\Models\Booking;
 use App\Models\Service;
+use App\Http\Requests\StoreProviderProfileRequest;
+use App\Http\Requests\StoreAvailabilityRequest;
 
 class ProviderController extends Controller
 {
     // Provider dashboard
     public function dashboard()
     {
-        $user = auth()->user();
-        $provider = $user->providerProfile;
-
-        // Initialize empty collections to prevent "Undefined Variable" errors
+        $provider = auth()->user()->providerProfile;
         $services = collect();
         $bookings = collect();
 
         if ($provider) {
-            // Fetch services belonging to this provider
             $services = Service::where('provider_id', $provider->id)->get();
-            
-            // Fetch bookings belonging to this provider
             $bookings = Booking::where('provider_id', $provider->id)
                 ->with(['customer', 'service'])
                 ->latest()
                 ->get();
         }
 
-        // Pass all three variables to the view
         return view('provider.dashboard', compact('provider', 'services', 'bookings'));
     }
 
@@ -41,17 +36,9 @@ class ProviderController extends Controller
         return view('provider.profile-create');
     }
 
-    // Save provider profile
-    public function storeProfile(Request $request)
+    // Save provider profile — validation handled by StoreProviderProfileRequest
+    public function storeProfile(StoreProviderProfileRequest $request)
     {
-        $request->validate([
-            'business_name' => 'required|string|max:255',
-            'category'      => 'required|string',
-            'description'   => 'nullable|string',
-            'location'      => 'required|string',
-            'phone'         => 'required|string',
-        ]);
-
         ProviderProfile::create([
             'user_id'       => auth()->id(),
             'business_name' => $request->business_name,
@@ -73,22 +60,16 @@ class ProviderController extends Controller
         return view('provider.availability', compact('provider', 'availabilities'));
     }
 
-    // Save availability
-    public function storeAvailability(Request $request)
+    // Save availability — validation handled by StoreAvailabilityRequest
+    public function storeAvailability(StoreAvailabilityRequest $request)
     {
-        $request->validate([
-            'day_of_week' => 'required',
-            'start_time'  => 'required',
-            'end_time'    => 'required|after:start_time',
-        ]);
-
         $provider = auth()->user()->providerProfile;
 
         Availability::create([
-            'provider_id' => $provider->id,
-            'day_of_week' => $request->day_of_week,
-            'start_time'  => $request->start_time,
-            'end_time'    => $request->end_time,
+            'provider_id'  => $provider->id,
+            'day_of_week'  => $request->day_of_week,
+            'start_time'   => $request->start_time,
+            'end_time'     => $request->end_time,
             'is_available' => true,
         ]);
 
@@ -104,38 +85,30 @@ class ProviderController extends Controller
             ->with(['customer', 'service'])
             ->latest()
             ->get();
-        return view('provider.booking', compact('provider', 'bookings'));
+        return view('provider.bookings', compact('provider', 'bookings'));
     }
 
     // Show edit profile form
-public function editProfile()
-{
-    $provider = auth()->user()->providerProfile;
-    return view('provider.profile-edit', compact('provider'));
-}
+    public function editProfile()
+    {
+        $provider = auth()->user()->providerProfile;
+        return view('provider.profile-edit', compact('provider'));
+    }
 
-// Update provider profile
-public function updateProfile(Request $request)
-{
-    $request->validate([
-        'business_name' => 'required|string|max:255',
-        'category'      => 'required|string',
-        'description'   => 'nullable|string',
-        'location'      => 'required|string',
-        'phone'         => 'required|string',
-    ]);
+    // Update provider profile — validation handled by StoreProviderProfileRequest
+    public function updateProfile(StoreProviderProfileRequest $request)
+    {
+        $provider = auth()->user()->providerProfile;
 
-    $provider = auth()->user()->providerProfile;
+        $provider->update([
+            'business_name' => $request->business_name,
+            'category'      => $request->category,
+            'description'   => $request->description,
+            'location'      => $request->location,
+            'phone'         => $request->phone,
+        ]);
 
-    $provider->update([
-        'business_name' => $request->business_name,
-        'category'      => $request->category,
-        'description'   => $request->description,
-        'location'      => $request->location,
-        'phone'         => $request->phone,
-    ]);
-
-    return redirect()->route('provider.dashboard')
-        ->with('success', 'Profile updated successfully!');
-}
+        return redirect()->route('provider.dashboard')
+            ->with('success', 'Profile updated successfully!');
+    }
 }

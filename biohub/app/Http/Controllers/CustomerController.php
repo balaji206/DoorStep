@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBookingRequest;
 use Illuminate\Http\Request;
 use App\Models\ProviderProfile;
 use App\Models\Booking;
@@ -47,15 +48,9 @@ class CustomerController extends Controller
         return view('customer.book', compact('provider'));
     }
 
-    // Store booking
-    public function storeBooking(Request $request, $id)
+    // Store booking — validation handled by StoreBookingRequest
+    public function storeBooking(StoreBookingRequest $request, $id)
     {
-        $request->validate([
-            'service_id'   => 'required|exists:services,id',
-            'booking_date' => 'required|date|after:today',
-            'start_time'   => 'required',
-        ]);
-
         $provider = ProviderProfile::findOrFail($id);
         $service  = Service::findOrFail($request->service_id);
 
@@ -63,7 +58,7 @@ class CustomerController extends Controller
         $startTime = \Carbon\Carbon::parse($request->start_time);
         $endTime   = $startTime->copy()->addMinutes($service->duration_minutes);
 
-        // Check if slot is already booked
+        // Check double booking
         $exists = Booking::where('provider_id', $provider->id)
             ->where('booking_date', $request->booking_date)
             ->where('start_time', $request->start_time)
@@ -100,29 +95,29 @@ class CustomerController extends Controller
 
         return view('customer.bookings', compact('bookings'));
     }
-    // Show the form for editing the customer profile
-public function editProfile()
-{
-    $user = auth()->user();
-    return view('customer.edit-profile', compact('user'));
-}
 
-// Update the customer profile in the database
-public function updateProfile(Request $request)
-{
-    $user = auth()->user();
+    // Show edit profile form
+    public function editProfile()
+    {
+        $user = auth()->user();
+        return view('customer.edit-profile', compact('user'));
+    }
 
-    $request->validate([
-        'name' => 'required|string|max:255',
-        // 'unique:users,email,'.$user->id ensures the user can keep their current email
-        'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-    ]);
+    // Update customer profile
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
 
-    $user->update([
-        'name' => $request->name,
-        'email' => $request->email,
-    ]);
+        $request->validate([
+            'name'  => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+        ]);
 
-    return redirect()->back()->with('status', 'profile-updated');
-}
+        $user->update([
+            'name'  => $request->name,
+            'email' => $request->email,
+        ]);
+
+        return redirect()->back()->with('success', 'Profile updated successfully!');
+    }
 }

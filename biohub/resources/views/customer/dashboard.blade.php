@@ -7,9 +7,9 @@
                 {{-- Logo --}}
                 <div class="flex items-center gap-3 mb-12">
                     <div class="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-lg">
-                        <span class="text-brand-600 font-black text-xl italic">B</span>
+                        <span class="text-brand-600 font-black text-xl italic">D</span>
                     </div>
-                    <span class="font-black text-2xl tracking-tighter italic uppercase">BIOHUB</span>
+                    <span class="font-black text-2xl tracking-tighter italic uppercase">DoorStep</span>
                 </div>
 
                 <nav class="space-y-3 flex-1">

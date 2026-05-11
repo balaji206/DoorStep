@@ -11,9 +11,9 @@
                 {{-- Logo --}}
                 <div class="flex items-center gap-3 mb-12">
                     <div class="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-lg transform rotate-3">
-                        <span class="text-brand-600 font-black text-xl">B</span>
+                        <span class="text-brand-600 font-black text-xl">D</span>
                     </div>
-                    <span class="font-black text-2xl tracking-tighter italic">BIOHUB</span>
+                    <span class="font-black text-2xl tracking-tighter italic">DoorStep</span>
                 </div>
 
                 {{-- Nav Links --}}

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ config('app.name', 'Bio-Hub') }} - Premium Service Platform</title>
+        <title>{{ config('app.name', 'DoorStep') }} - Premium Service Platform</title>
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         
@@ -34,9 +34,9 @@
                 <div class="flex justify-between items-center h-20">
                     <div class="flex items-center gap-3 group cursor-pointer">
                         <div class="w-10 h-10 rounded-2xl bg-slate-900 flex items-center justify-center shadow-2xl transition-transform group-hover:rotate-6">
-                            <span class="text-white font-black text-xl font-heading">B</span>
+                            <span class="text-white font-black text-xl font-heading">D</span>
                         </div>
-                        <span class="font-heading font-black text-2xl tracking-tighter text-slate-900 uppercase">BioHub</span>
+                        <span class="font-heading font-black text-2xl tracking-tighter text-slate-900 uppercase">DoorStep</span>
                     </div>
 
                     @if (Route::has('login'))
@@ -163,9 +163,9 @@
                     <div class="space-y-6">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-2xl bg-slate-900 flex items-center justify-center">
-                                <span class="text-white font-black text-sm">B</span>
+                                <span class="text-white font-black text-sm">D</span>
                             </div>
-                            <span class="font-heading font-black text-2xl text-slate-900 tracking-tighter uppercase">BioHub</span>
+                            <span class="font-heading font-black text-2xl text-slate-900 tracking-tighter uppercase">DoorStep</span>
                         </div>
                         <p class="text-slate-400 font-bold text-xs max-w-xs uppercase tracking-widest leading-loose">
                             Redefining the service operating system for the next generation of providers.
@@ -190,7 +190,7 @@
                     </div>
                 </div>
                 <div class="mt-24 pt-8 border-t border-slate-50 flex justify-between items-center">
-                    <p class="text-[10px] font-black text-slate-300 tracking-[0.3em] uppercase">&copy; 2026 BIO-HUB OS</p>
+                    <p class="text-[10px] font-black text-slate-300 tracking-[0.3em] uppercase">&copy; 2026 DoorStep OS</p>
                     <div class="flex gap-4">
                         <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
                         <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">All Systems Operational</span>

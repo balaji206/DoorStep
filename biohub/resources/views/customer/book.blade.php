@@ -6,9 +6,9 @@
             <div class="p-8 relative z-10 flex flex-col h-full">
                 <div class="flex items-center gap-3 mb-12">
                     <div class="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-lg">
-                        <span class="text-brand-600 font-black text-xl italic">B</span>
+                        <span class="text-brand-600 font-black text-xl italic">D</span>
                     </div>
-                    <span class="font-black text-2xl tracking-tighter italic uppercase">BIOHUB</span>
+                    <span class="font-black text-2xl tracking-tighter italic uppercase">DoorStep</span>
                 </div>
 
                 <nav class="space-y-3 flex-1">
@@ -140,7 +140,7 @@
                         </ul>
                         <div class="mt-12 pt-10 border-t border-white/10">
                             <p class="text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Powered by</p>
-                            <span class="font-black text-xl italic tracking-tighter">BIOHUB</span>
+                            <span class="font-black text-xl italic tracking-tighter">DoorStep</span>
                         </div>
                     </div>
                 </div>
