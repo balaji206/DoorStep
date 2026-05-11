@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
 {
-    Schema::create('links', function (Blueprint $table) {
+    Schema::create('services', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('profile_id')->constrained()->onDelete('cascade');
-        $table->string('title');
-        $table->string('url');
-        $table->integer('order')->default(0);
-        $table->integer('click_count')->default(0);
+        $table->foreignId('provider_id')->constrained('provider_profiles')->onDelete('cascade');
+        $table->string('name');
+        $table->integer('duration_minutes');
+        $table->decimal('price', 8, 2);
         $table->timestamps();
     });
 }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('links');
+        Schema::dropIfExists('services');
     }
 };
