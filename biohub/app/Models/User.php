@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -49,8 +50,27 @@ class User extends Authenticatable
     }
 
     // A user has one profile
-    public function profile()
-    {
-        return $this->hasOne(Profile::class);
-    }
+    // User has one provider profile
+public function providerProfile()
+{
+    return $this->hasOne(ProviderProfile::class);
+}
+
+// User has many bookings as customer
+public function bookings()
+{
+    return $this->hasMany(Booking::class, 'customer_id');
+}
+
+// Check if user is a provider
+public function isProvider()
+{
+    return $this->role === 'provider';
+}
+
+// Check if user is a customer
+public function isCustomer()
+{
+    return $this->role === 'customer';
+}
 }

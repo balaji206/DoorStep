@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
 {
-    Schema::create('profiles', function (Blueprint $table) {
+    Schema::create('provider_profiles', function (Blueprint $table) {
         $table->id();
         $table->foreignId('user_id')->constrained()->onDelete('cascade');
-        $table->string('username')->unique();
-        $table->string('bio')->nullable();
-        $table->string('avatar')->nullable();
-        $table->string('theme')->default('purple');
+        $table->string('business_name');
+        $table->string('category'); // salon, mechanic, clinic etc
+        $table->text('description')->nullable();
+        $table->string('location');
+        $table->string('phone');
         $table->timestamps();
     });
 }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('profiles');
+        Schema::dropIfExists('provider_profiles');
     }
 };

@@ -1,3 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-background text-text font-sans antialiased selection:bg-primary/30 selection:text-white;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-heading tracking-tight;
+    }
+}
+/* Custom rounded corners for a premium feel */
+.shadow-soft {
+    box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.05);
+}
+
+/* Hide scrollbar for clean UI but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
