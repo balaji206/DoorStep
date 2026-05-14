@@ -43,7 +43,7 @@
                 {{-- Settings at bottom --}}
                 <div class="mt-8 pt-6 border-t border-white/10">
 
-    <a href="{{ route('customer.profile.edit') }}"
+    <a href="{{ route('provider.profile.edit') }}"
        class="flex items-center gap-4 px-6 py-4 hover:bg-white/10 rounded-2xl font-semibold transition-all group">
 
         <svg class="w-5 h-5 text-white/70 group-hover:text-white"
