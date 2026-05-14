@@ -42,10 +42,7 @@ RUN npm run build
 RUN chmod -R 775 storage bootstrap/cache
 
 # Clear caches
-RUN php artisan config:clear && \
-    php artisan cache:clear && \
-    php artisan route:clear && \
-    php artisan view:clear
+RUN php artisan config:clear
 
 # Create storage symlink safely
 RUN php artisan storage:link || true
