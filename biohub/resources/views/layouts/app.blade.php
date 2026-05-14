@@ -8,7 +8,9 @@
         <title>{{ config('app.name', 'DoorStep') }}</title>
 
         <!-- Scripts & Styles -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @if (file_exists(public_path('build/manifest.json')))
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+@endif
     </head>
     <body class="font-sans antialiased text-text bg-background overflow-x-hidden">
         <div class="min-h-screen bg-background relative flex flex-col">
