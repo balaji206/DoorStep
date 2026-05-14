@@ -37,6 +37,7 @@ RUN npm run build
 
 RUN cat public/build/manifest.json
 # IMPORTANT: Remove Vite dev server file
+
 RUN rm -f public/hot
 
 # Laravel permissions
