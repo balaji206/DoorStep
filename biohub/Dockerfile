@@ -38,6 +38,9 @@ RUN npm install
 # Build Vite assets
 RUN npm run build
 
+RUN ls -la public/build
+RUN ls -la public/build/assets
+
 # Laravel permissions
 RUN chmod -R 775 storage bootstrap/cache
 
@@ -52,4 +55,5 @@ EXPOSE 10000
 
 # Start application
 CMD php artisan migrate --force || true && \
-    php artisan serve --host=0.0.0.0 --port=10000
+    php artisan optimize:clear && \
+    php -S 0.0.0.0:10000 -t public
