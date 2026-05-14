@@ -27,36 +27,30 @@ WORKDIR /app
 COPY . .
 
 # Install PHP dependencies
-RUN composer install \
-    --no-dev \
-    --optimize-autoloader \
-    --no-interaction
+RUN composer install --optimize-autoloader --no-dev
 
 # Install frontend dependencies
 RUN npm install
 
-# Build Vite assets
+# Build frontend assets
 RUN npm run build
 
-# IMPORTANT: remove vite dev server file
+# IMPORTANT: Remove Vite dev server file
 RUN rm -f public/hot
-
-# Verify assets
-RUN ls -la public/build/assets
 
 # Laravel permissions
 RUN chmod -R 775 storage bootstrap/cache
 
-# Clear config
+# Clear Laravel config
 RUN php artisan config:clear
 
-# Create storage symlink
+# Create storage symlink safely
 RUN php artisan storage:link || true
 
 # Expose Render port
 EXPOSE 10000
 
-# Start application
+# Start Laravel application
 CMD php artisan migrate --force || true && \
     php artisan optimize:clear && \
     php -S 0.0.0.0:10000 -t public
