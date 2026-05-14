@@ -38,16 +38,19 @@ RUN npm install
 # Build Vite assets
 RUN npm run build
 
-RUN ls -la public/build
+# IMPORTANT: remove vite dev server file
+RUN rm -f public/hot
+
+# Verify assets
 RUN ls -la public/build/assets
 
 # Laravel permissions
 RUN chmod -R 775 storage bootstrap/cache
 
-# Clear caches
+# Clear config
 RUN php artisan config:clear
 
-# Create storage symlink safely
+# Create storage symlink
 RUN php artisan storage:link || true
 
 # Expose Render port
