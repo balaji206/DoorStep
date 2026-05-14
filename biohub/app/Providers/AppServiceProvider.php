@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,6 +25,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
 {
     // Register Policies
+    if (env('APP_ENV') === 'production') {
+        URL::forceScheme('https');
+    }
+
+
     Gate::policy(ProviderProfile::class, ProviderProfilePolicy::class);
     Gate::policy(Service::class, ServicePolicy::class);
     Gate::policy(Booking::class, BookingPolicy::class);
