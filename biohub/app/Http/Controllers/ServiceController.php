@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Http\Requests\StoreServiceRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ServiceController extends Controller
 {
+     use AuthorizesRequests;
     // Show all services
     public function index()
     {
@@ -41,15 +43,13 @@ class ServiceController extends Controller
 
     // Delete a service
     public function destroy($id)
-    {
-        $provider = auth()->user()->providerProfile;
-        $service = Service::where('id', $id)
-            ->where('provider_id', $provider->id)
-            ->firstOrFail();
+{
+    $service = Service::findOrFail($id);
+    $this->authorize('delete', $service);
 
-        $service->delete();
+    $service->delete();
 
-        return redirect()->route('provider.services.index')
-            ->with('success', 'Service deleted!');
-    }
+    return redirect()->route('provider.services.index')
+        ->with('success', 'Service deleted!');
+}
 }

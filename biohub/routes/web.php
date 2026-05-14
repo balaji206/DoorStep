@@ -9,7 +9,7 @@ use App\Http\Controllers\ServiceController;
 // Home page
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 // Dashboard — redirect based on role
 Route::middleware('auth')->group(function () {

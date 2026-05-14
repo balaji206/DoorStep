@@ -2,7 +2,7 @@
     <div class="flex min-h-screen bg-[#f3f6ff] font-sans text-slate-900">
         
         {{-- Sidebar: Customer Navigation --}}
-        <aside class="hidden lg:flex flex-col w-72 bg-brand-500 text-white rounded-r-[3rem] my-4 ml-4 shadow-2xl relative overflow-hidden">
+        <aside class="hidden lg:flex flex-col fixed left-4 top-4 bottom-4 w-64 bg-brand-500 text-white rounded-r-[3rem] shadow-2xl relative overflow-hidden">
             <div class="p-8 relative z-10 flex flex-col h-full">
                 <div class="flex items-center gap-3 mb-12">
                     <div class="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-lg">

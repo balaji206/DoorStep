@@ -1,6 +1,7 @@
 <x-app-layout>
     {{-- Flex container ensures both columns can share height logic --}}
-    <div class="flex min-h-screen bg-[#f3f6ff] font-sans text-slate-900 overflow-hidden">
+    @can('access-provider-dashboard')
+    <div class="flex h-screen bg-[#f3f6ff] font-sans text-slate-900 overflow-hidden">
         
         {{-- 1. Sidebar Navigation - Now stretches to match content height --}}
         <aside class="hidden lg:flex flex-col w-72 bg-brand-500 text-white rounded-r-[3rem] ml-4 my-4 shadow-2xl relative overflow-hidden self-stretch">
@@ -40,12 +41,28 @@
                 </nav>
 
                 {{-- Settings at bottom --}}
-                <div class="mt-auto pt-6 border-t border-white/10">
-                    <a href="{{ route('provider.profile.edit') }}" class="flex items-center gap-4 px-6 py-4 hover:bg-white/10 rounded-2xl font-semibold transition-all group">
-                        <svg class="w-5 h-5 text-white/70 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                        Settings
-                    </a>
-                </div>
+                <div class="mt-8 pt-6 border-t border-white/10">
+
+    <a href="{{ route('customer.profile.edit') }}"
+       class="flex items-center gap-4 px-6 py-4 hover:bg-white/10 rounded-2xl font-semibold transition-all group">
+
+        <svg class="w-5 h-5 text-white/70 group-hover:text-white"
+             fill="none"
+             stroke="currentColor"
+             viewBox="0 0 24 24">
+
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l.7 2.153a1 1 0 00.95.69h2.262c.969 0 1.371 1.24.588 1.81l-1.83 1.33a1 1 0 00-.364 1.118l.7 2.153c.3.921-.755 1.688-1.54 1.118l-1.83-1.33a1 1 0 00-1.176 0l-1.83 1.33c-.784.57-1.838-.197-1.539-1.118l.7-2.153a1 1 0 00-.364-1.118l-1.83-1.33c-.783-.57-.38-1.81.588-1.81h2.262a1 1 0 00.95-.69l.7-2.153z"/>
+
+        </svg>
+
+        Settings
+
+    </a>
+
+</div>
             </div>
         </aside>
 
@@ -160,15 +177,174 @@
                 @endif
 
                 {{-- Revenue Insight Card (Sidebar will end here visually) --}}
-                <div class="bg-white rounded-[3rem] p-10 shadow-soft h-[400px] flex items-center justify-center border border-slate-100">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-slate-50 rounded-3xl mx-auto mb-6 flex items-center justify-center text-slate-300">
-                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-                        </div>
-                        <p class="font-black text-slate-400 uppercase tracking-widest text-sm">Revenue Insights (V2 coming soon)</p>
-                    </div>
+                {{-- Revenue Insights --}}
+<div class="bg-white rounded-[3rem] p-10 shadow-soft border border-slate-100 overflow-hidden relative">
+
+    {{-- Background Glow --}}
+    <div class="absolute top-0 right-0 w-72 h-72 bg-brand-100 rounded-full blur-3xl opacity-40"></div>
+
+    <div class="relative z-10">
+
+        {{-- Header --}}
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-10">
+
+            <div>
+                <p class="text-xs font-black uppercase tracking-[0.3em] text-brand-500 mb-3">
+                    Revenue Analytics
+                </p>
+
+                <h2 class="text-4xl font-black tracking-tight text-slate-800">
+                    Business Insights
+                </h2>
+            </div>
+
+            <div class="flex items-center gap-4">
+
+                <div class="px-5 py-3 rounded-2xl bg-emerald-50 text-emerald-600 text-sm font-black">
+                    +18.2%
                 </div>
+
+                <div class="text-right">
+                    <p class="text-xs text-slate-400 font-bold uppercase">
+                        This Month
+                    </p>
+
+                    <h3 class="text-2xl font-black text-slate-800">
+                        ₹24,500
+                    </h3>
+                </div>
+
+            </div>
+
+        </div>
+
+        {{-- Graph Area --}}
+        <div class="relative h-[320px]">
+
+            {{-- Y Labels --}}
+            <div class="absolute left-0 top-0 h-full flex flex-col justify-between text-xs font-bold text-slate-300">
+                <span>₹30K</span>
+                <span>₹20K</span>
+                <span>₹10K</span>
+                <span>₹0</span>
+            </div>
+
+            {{-- Graph --}}
+            <div class="ml-16 h-full flex items-end justify-between gap-4">
+
+                @php
+
+$days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+$revenues = [];
+
+foreach ($days as $day) {
+
+    $count = $bookings
+        ->where('status', 'confirmed')
+        ->filter(function ($booking) use ($day) {
+            return \Carbon\Carbon::parse($booking->created_at)->format('D') === $day;
+        })
+        ->count();
+
+    // Better dynamic scaling
+    $revenues[] = $count > 0 ? ($count * 35) : 8;
+}
+
+@endphp
+
+                @foreach($revenues as $index => $height)
+
+                <div class="flex flex-col items-center flex-1 group">
+
+                    {{-- Bar --}}
+                    <div class="relative w-full flex justify-center">
+
+                        <div class="w-full max-w-[55px]
+                                    bg-gradient-to-t from-brand-600 to-brand-400
+                                    rounded-t-[1.5rem]
+                                    shadow-lg
+                                    hover:scale-105
+                                    transition-all duration-300"
+                             style="height: {{ min($height, 100) }}%; min-height:30px;">
+
+                            {{-- Glow --}}
+                            <div class="absolute inset-0 bg-white/10 rounded-t-[1.5rem]"></div>
+
+                        </div>
+
+                    </div>
+
+                    {{-- Day --}}
+                    <div class="mt-4 text-center">
+    <p class="text-sm font-black text-slate-800">
+        {{ $revenues[$index] }}
+    </p>
+
+    <span class="text-xs font-black uppercase tracking-wider text-slate-400">
+        {{ $days[$index] }}
+    </span>
+</div>
+
+                </div>
+
+                @endforeach
+
+            </div>
+
+        </div>
+
+        {{-- Bottom Stats --}}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+
+            <div class="bg-slate-50 rounded-3xl p-6">
+                <p class="text-xs font-black uppercase tracking-widest text-slate-400 mb-2">
+                    Completed Services
+                </p>
+
+                <h3 class="text-3xl font-black text-slate-800">
+                    {{ $bookings->where('status', 'confirmed')->count() }}
+                </h3>
+            </div>
+
+            <div class="bg-slate-50 rounded-3xl p-6">
+                <p class="text-xs font-black uppercase tracking-widest text-slate-400 mb-2">
+                    Pending Requests
+                </p>
+
+                <h3 class="text-3xl font-black text-amber-500">
+                    {{ $bookings->where('status', 'pending')->count() }}
+                </h3>
+            </div>
+
+            <div class="bg-slate-50 rounded-3xl p-6">
+                <p class="text-xs font-black uppercase tracking-widest text-slate-400 mb-2">
+                    Active Services
+                </p>
+
+                <h3 class="text-3xl font-black text-emerald-500">
+                    {{ $services->count() }}
+                </h3>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
             </div>
         </main>
     </div>
+    @else
+    <div class="min-h-screen flex items-center justify-center bg-[#f3f6ff]">
+        <div class="bg-white rounded-3xl shadow-lg p-12 text-center max-w-md">
+            <div class="text-6xl mb-6">🚫</div>
+            <h2 class="text-2xl font-black text-slate-800 mb-3">Access Denied</h2>
+            <p class="text-slate-500 mb-6">You don't have permission to access this area.</p>
+            <a href="{{ route('dashboard') }}" class="px-8 py-3 bg-slate-900 text-white font-black rounded-2xl hover:bg-black transition-all">
+                Go Back
+            </a>
+        </div>
+    </div>
+    @endcan
 </x-app-layout>

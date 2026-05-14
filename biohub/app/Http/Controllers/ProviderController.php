@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use App\Models\ProviderProfile;
 use App\Models\Availability;
@@ -9,15 +10,22 @@ use App\Models\Booking;
 use App\Models\Service;
 use App\Http\Requests\StoreProviderProfileRequest;
 use App\Http\Requests\StoreAvailabilityRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests; 
 
 class ProviderController extends Controller
 {
+    use AuthorizesRequests;
     // Provider dashboard
     public function dashboard()
     {
         $provider = auth()->user()->providerProfile;
         $services = collect();
         $bookings = collect();
+
+        // Gate check — only providers can see this
+    if (Gate::denies('access-provider-dashboard')) {
+        abort(403, 'Only providers can access this area.');
+    }
 
         if ($provider) {
             $services = Service::where('provider_id', $provider->id)->get();
@@ -62,20 +70,23 @@ class ProviderController extends Controller
 
     // Save availability — validation handled by StoreAvailabilityRequest
     public function storeAvailability(StoreAvailabilityRequest $request)
-    {
-        $provider = auth()->user()->providerProfile;
+{
+    $provider = auth()->user()->providerProfile;
 
+    // Loop through each selected day and create availability
+    foreach ($request->day_of_week as $day) {
         Availability::create([
             'provider_id'  => $provider->id,
-            'day_of_week'  => $request->day_of_week,
+            'day_of_week'  => $day,
             'start_time'   => $request->start_time,
             'end_time'     => $request->end_time,
             'is_available' => true,
         ]);
-
-        return redirect()->route('provider.availability')
-            ->with('success', 'Availability added!');
     }
+
+    return redirect()->route('provider.availability')
+        ->with('success', 'Availability added for selected days!');
+}
 
     // Show provider bookings
     public function bookings()
@@ -97,18 +108,19 @@ class ProviderController extends Controller
 
     // Update provider profile — validation handled by StoreProviderProfileRequest
     public function updateProfile(StoreProviderProfileRequest $request)
-    {
-        $provider = auth()->user()->providerProfile;
+{
+    $provider = auth()->user()->providerProfile;
+    $this->authorize('update', $provider);
 
-        $provider->update([
-            'business_name' => $request->business_name,
-            'category'      => $request->category,
-            'description'   => $request->description,
-            'location'      => $request->location,
-            'phone'         => $request->phone,
-        ]);
+    $provider->update([
+        'business_name' => $request->business_name,
+        'category'      => $request->category,
+        'description'   => $request->description,
+        'location'      => $request->location,
+        'phone'         => $request->phone,
+    ]);
 
-        return redirect()->route('provider.dashboard')
-            ->with('success', 'Profile updated successfully!');
-    }
+    return redirect()->route('provider.dashboard')
+        ->with('success', 'Profile updated successfully!');
+}
 }
