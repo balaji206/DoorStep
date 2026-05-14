@@ -25,9 +25,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
 {
     // Register Policies
-    if (env('APP_ENV') === 'production') {
+    if ($this->app->environment('production')) {
         URL::forceScheme('https');
     }
+    
 
 
     Gate::policy(ProviderProfile::class, ProviderProfilePolicy::class);

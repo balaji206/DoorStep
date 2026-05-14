@@ -15,7 +15,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-muted hover:text-white transition-colors">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-muted hover:text-gray-300 transition-colors">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
@@ -25,7 +25,7 @@
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-full text-muted bg-card hover:text-white hover:bg-white/5 focus:outline-none transition ease-in-out duration-150 backdrop-blur-md">
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-full text-muted bg-card hover:text-gray-300 hover:bg-white/5 focus:outline-none transition ease-in-out duration-150 backdrop-blur-md">
                             <div class="w-6 h-6 rounded-full bg-gradient-to-r from-primary to-accent mr-2 border border-white/10"></div>
                             <div>{{ Auth::user()->name }}</div>
 
@@ -45,7 +45,7 @@
 
                                 <x-dropdown-link :href="route('logout')"
                                         onclick="event.preventDefault();
-                                                    this.closest('form').submit();" class="hover:bg-danger/10 text-muted hover:text-danger">
+                                                    this.closest('form').submit();" class=" text-muted hover:text-danger hover:text-red-500">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>

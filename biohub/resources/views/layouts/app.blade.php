@@ -8,8 +8,7 @@
         <title>{{ config('app.name', 'DoorStep') }}</title>
 
         <!-- Scripts & Styles -->
-        <link rel="stylesheet" href="{{ asset('build/assets/app-BG1KdCN_.css') }}">
-<script type="module" src="{{ asset('build/assets/app-DsIK1Lmc.js') }}"></script>
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased text-text bg-background overflow-x-hidden">
         <div class="min-h-screen bg-background relative flex flex-col">
