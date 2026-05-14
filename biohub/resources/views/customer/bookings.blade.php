@@ -1,14 +1,14 @@
 <x-app-layout>
-    <div class="flex min-h-screen bg-[#f3f6ff] font-sans text-slate-900">
+    <div class="flex h-screen bg-[#f3f6ff] font-sans text-slate-900 overflow-hidden">
         
         {{-- Sidebar: Consistent Navigation --}}
-        <aside class="hidden lg:flex flex-col w-72 bg-brand-500 text-white rounded-r-[3rem] my-4 ml-4 shadow-2xl relative overflow-hidden">
+        <aside class="hidden lg:flex flex-col fixed left-4 top-4 bottom-4 w-64 bg-brand-500 text-white rounded-r-[3rem] shadow-2xl relative overflow-hidden">
             <div class="p-8 relative z-10 flex flex-col h-full">
                 <div class="flex items-center gap-3 mb-12">
                     <div class="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-lg">
-                        <span class="text-brand-600 font-black text-xl italic">B</span>
+                        <span class="text-brand-600 font-black text-xl italic">D</span>
                     </div>
-                    <span class="font-black text-2xl tracking-tighter italic uppercase">BIOHUB</span>
+                    <span class="font-black text-2xl tracking-tighter italic uppercase">DoorStep</span>
                 </div>
 
                 <nav class="space-y-3 flex-1">
@@ -100,12 +100,14 @@
                             {{-- Cancel Button (Only for Pending) --}}
                             <div class="w-12 h-12 flex items-center justify-center">
                                 @if($booking->status === 'pending')
+                                @can('cancel',$booking)
                                 <form method="POST" action="{{ route('customer.bookings.cancel', $booking->id) }}" onsubmit="return confirm('Withdraw this booking request?');">
                                     @csrf
                                     <button class="p-3 bg-white border border-slate-200 text-rose-500 rounded-xl hover:bg-rose-50 transition-all hover:scale-110 active:scale-95 shadow-sm" title="Cancel Booking">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
                                     </button>
                                 </form>
+                                @endcan
                                 @endif
                             </div>
                         </div>

@@ -1,14 +1,14 @@
 <x-app-layout>
-    <div class="flex min-h-screen bg-[#f3f6ff] font-sans text-slate-900">
+    <div class="flex h-screen bg-[#f3f6ff] font-sans text-slate-900 overflow-hidden">
         
         {{-- Sidebar (Same as Dashboard for consistency) --}}
-        <aside class="hidden lg:flex flex-col w-72 bg-brand-500 text-white rounded-r-[3rem] my-4 ml-4 shadow-2xl relative overflow-hidden">
+        <aside class="hidden lg:flex flex-col fixed left-4 top-4 bottom-4 w-64 bg-brand-500 text-white rounded-r-[3rem] shadow-2xl relative overflow-hidden">   
             <div class="p-8 relative z-10 flex flex-col h-full">
                 <div class="flex items-center gap-3 mb-12">
                     <div class="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-lg">
-                        <span class="text-brand-600 font-black text-xl italic">B</span>
+                        <span class="text-brand-600 font-black text-xl italic">D</span>
                     </div>
-                    <span class="font-black text-2xl tracking-tighter italic uppercase">BIOHUB</span>
+                    <span class="font-black text-2xl tracking-tighter italic uppercase">DoorStep</span>
                 </div>
 
                 <nav class="space-y-3 flex-1">
@@ -48,16 +48,23 @@
                             @csrf
 
                             <div>
-                                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">Select Day</label>
-                                <select name="day_of_week"
-                                    class="w-full bg-slate-50 border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-brand-500 font-bold text-slate-700 transition-all cursor-pointer"
-                                    required>
-                                    <option value="" disabled selected>Choose a day...</option>
-                                    @foreach(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as $day)
-                                        <option value="{{ $day }}">{{ ucfirst($day) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Select Days Available</label>
+    <div class="space-y-2">
+        @foreach(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as $day)
+        <label class="flex items-center gap-4 px-5 py-3 bg-slate-50 rounded-2xl cursor-pointer hover:bg-brand-50 transition-all group">
+            <input
+                type="checkbox"
+                name="day_of_week[]"
+                value="{{ $day }}"
+                class="w-5 h-5 rounded-lg border-slate-300 text-brand-500 focus:ring-brand-500 cursor-pointer"
+            />
+            <span class="font-bold text-slate-700 group-hover:text-brand-600 capitalize transition-colors">
+                {{ ucfirst($day) }}
+            </span>
+        </label>
+        @endforeach
+    </div>
+</div>
 
                             <div class="grid grid-cols-2 gap-4">
                                 <div>

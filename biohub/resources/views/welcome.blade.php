@@ -1,203 +1,558 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="light">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ config('app.name', 'Bio-Hub') }} - Premium Service Platform</title>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;500;600;800&display=swap');
-            
-            @keyframes float {
-                0% { transform: translateY(0px); }
-                50% { transform: translateY(-10px); }
-                100% { transform: translateY(0px); }
-            }
-            .animate-float { animation: float 6s ease-in-out infinite; }
-        </style>
-    </head>
-    <body class="bg-[#f3f6ff] text-slate-900 font-sans antialiased selection:bg-brand-500/30 selection:text-brand-600 overflow-x-hidden">
-        
-        <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none bg-white">
-            <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay"></div>
-            
-            <div class="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-brand-200/40 blur-[140px] animate-pulse"></div>
-            <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-200/40 blur-[140px] animate-pulse" style="animation-delay: 2s;"></div>
-            
-            <div class="absolute inset-0" style="background-image: radial-gradient(#8080801a 1px, transparent 1px); background-size: 40px 40px;"></div>
-        </div>
+    <title>{{ config('app.name', 'DoorStep') }}</title>
 
-        <header class="fixed top-0 w-full z-50 border-b border-slate-200/50 bg-white/60 backdrop-blur-2xl transition-all duration-300">
-            <div class="max-w-7xl mx-auto px-6 lg:px-8">
-                <div class="flex justify-between items-center h-20">
-                    <div class="flex items-center gap-3 group cursor-pointer">
-                        <div class="w-10 h-10 rounded-2xl bg-slate-900 flex items-center justify-center shadow-2xl transition-transform group-hover:rotate-6">
-                            <span class="text-white font-black text-xl font-heading">B</span>
-                        </div>
-                        <span class="font-heading font-black text-2xl tracking-tighter text-slate-900 uppercase">BioHub</span>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .heading-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .glass {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+
+<body class="bg-[#f4f7ff] text-slate-900 overflow-x-hidden">
+
+    <!-- Background -->
+    <div class="fixed inset-0 -z-10 overflow-hidden">
+
+        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-300/30 rounded-full blur-[120px]"></div>
+
+        <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-indigo-300/30 rounded-full blur-[120px]"></div>
+
+        <div class="absolute inset-0 bg-[radial-gradient(#dbe4ff_1px,transparent_1px)] [background-size:32px_32px] opacity-40"></div>
+
+    </div>
+
+    <!-- Navbar -->
+    <header class="fixed top-0 left-0 w-full z-50 border-b border-white/20 glass">
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+            <div class="flex items-center justify-between h-20">
+
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+
+                    <div class="w-11 h-11 rounded-2xl bg-slate-900 flex items-center justify-center shadow-xl">
+                        <span class="text-white font-black text-lg">D</span>
                     </div>
 
-                    @if (Route::has('login'))
-                        <nav class="flex items-center gap-8">
-                            @auth
-                                <a href="{{ url('/dashboard') }}" class="px-6 py-2.5 rounded-2xl bg-slate-900 text-white text-xs font-black uppercase tracking-widest hover:bg-black transition-all hover:scale-105 active:scale-95 shadow-xl shadow-slate-200">
-                                    Dashboard
-                                </a>
-                            @else
-                                <a href="{{ route('login') }}" class="text-xs font-black text-slate-400 uppercase tracking-widest hover:text-slate-900 transition-colors">
-                                    Sign in
-                                </a>
+                    <h1 class="heading-font text-2xl font-black tracking-tight">
+                        DoorStep
+                    </h1>
 
-                                @if (Route::has('register'))
-                                    <a href="{{ route('register') }}" class="px-7 py-3 rounded-2xl bg-brand-500 text-white text-xs font-black uppercase tracking-widest shadow-xl shadow-brand-500/20 hover:bg-brand-600 transition-all hover:-translate-y-0.5">
-                                        Get Started
-                                    </a>
-                                @endif
-                            @endauth
-                        </nav>
-                    @endif
-                </div>
-            </div>
-        </header>
-
-        <main class="relative pt-48 pb-20 lg:pt-64 lg:pb-32 overflow-hidden">
-            <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-                
-                <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/80 border border-slate-200 shadow-sm backdrop-blur-md text-brand-600 text-[10px] font-black uppercase tracking-[0.2em] mb-12 animate-fade-in">
-                    <span class="relative flex h-2 w-2">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-                    </span>
-                    Infrastructure for Professionals
                 </div>
 
-                <h1 class="text-6xl md:text-9xl font-black tracking-tighter mb-10 font-heading animate-slide-up leading-[0.85] text-slate-900">
-                    Precision<br />
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-indigo-600">Performance.</span>
-                </h1>
+                <!-- Nav -->
+                <nav class="hidden md:flex items-center gap-10">
 
-                <p class="max-w-2xl mx-auto text-lg md:text-xl text-slate-500 mb-14 font-medium animate-slide-up leading-relaxed" style="animation-delay: 0.1s;">
-                    The OS for modern providers. We strip away the complexity so you can focus on your craft. Managed bookings, automated flow.
-                </p>
-
-                <div class="flex flex-col sm:flex-row justify-center items-center gap-6 animate-slide-up" style="animation-delay: 0.2s;">
-                    <a href="{{ route('register') }}" class="w-full sm:w-auto px-12 py-6 rounded-3xl bg-slate-900 text-white font-black text-sm uppercase tracking-widest hover:shadow-2xl transition-all hover:scale-105 active:scale-95">
-                        Launch Profile
-                    </a>
-                    <a href="#features" class="w-full sm:w-auto px-12 py-6 rounded-3xl bg-white border border-slate-200 text-slate-900 font-black text-sm uppercase tracking-widest hover:bg-slate-50 transition-all">
+                    <a href="#features"
+                       class="text-sm font-semibold text-slate-600 hover:text-blue-600 transition">
                         Features
                     </a>
+
+                    <a href="#services"
+                       class="text-sm font-semibold text-slate-600 hover:text-blue-600 transition">
+                        Services
+                    </a>
+
+                    <a href="#reviews"
+                       class="text-sm font-semibold text-slate-600 hover:text-blue-600 transition">
+                        Reviews
+                    </a>
+
+                </nav>
+
+                <!-- Auth Buttons -->
+                <div class="flex items-center gap-4">
+
+                    @auth
+
+                        <a href="{{ url('/dashboard') }}"
+                           class="px-6 py-3 rounded-2xl bg-slate-900 text-white font-bold shadow-xl hover:scale-105 transition">
+                            Dashboard
+                        </a>
+
+                    @else
+
+                        <a href="{{ route('login') }}"
+                           class="text-sm font-semibold text-slate-700 hover:text-black">
+                            Login
+                        </a>
+
+                        <a href="{{ route('register') }}"
+                           class="px-6 py-3 rounded-2xl bg-blue-600 text-white font-bold shadow-xl hover:bg-blue-700 hover:scale-105 transition-all">
+                            Get Started
+                        </a>
+
+                    @endauth
+
                 </div>
 
-                <div class="mt-32 relative max-w-6xl mx-auto animate-slide-up" style="animation-delay: 0.4s;">
-                    <div class="relative rounded-[3.5rem] border border-slate-200 bg-white p-5 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.08)] overflow-hidden animate-float">
-                        <div class="rounded-[2.5rem] overflow-hidden bg-[#f8fafc] border border-slate-100 aspect-[16/9] relative group">
-                             <div class="absolute inset-0 bg-gradient-to-tr from-brand-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                             
-                             <div class="w-full h-full flex">
-                                 <div class="w-1/4 h-full bg-slate-900 p-10 hidden md:block">
-                                     <div class="space-y-6">
-                                         <div class="w-full h-2 rounded-full bg-white/10"></div>
-                                         <div class="w-3/4 h-2 rounded-full bg-white/10"></div>
-                                         <div class="w-1/2 h-2 rounded-full bg-white/10"></div>
-                                     </div>
-                                 </div>
-                                 <div class="flex-1 p-12">
-                                     <div class="flex justify-between items-start mb-16">
-                                         <div class="space-y-3 text-left">
-                                             <div class="w-32 h-6 rounded-xl bg-slate-200"></div>
-                                             <div class="w-20 h-4 rounded-xl bg-slate-100"></div>
-                                         </div>
-                                         <div class="w-12 h-12 rounded-2xl bg-brand-100"></div>
-                                     </div>
-                                     <div class="grid grid-cols-3 gap-8">
-                                         <div class="h-48 rounded-[2.5rem] bg-white border border-slate-100 shadow-sm"></div>
-                                         <div class="h-48 rounded-[2.5rem] bg-white border border-slate-100 shadow-sm"></div>
-                                         <div class="h-48 rounded-[2.5rem] bg-white border border-slate-100 shadow-sm"></div>
-                                     </div>
-                                 </div>
-                             </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </main>
 
-        <section id="features" class="py-32 relative bg-white">
-            <div class="max-w-7xl mx-auto px-6 lg:px-8">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    
-                    <div class="group p-10 rounded-[3rem] bg-[#f8fafc] border border-slate-100 transition-all hover:bg-white hover:shadow-2xl hover:shadow-slate-200/50">
-                        <div class="w-14 h-14 rounded-2xl bg-slate-900 flex items-center justify-center text-xl mb-8 group-hover:scale-110 transition-transform">
-                            <span class="text-white">⚡</span>
-                        </div>
-                        <h3 class="text-2xl font-black tracking-tight mb-4 text-slate-900">Rapid Deploy</h3>
-                        <p class="text-slate-500 leading-relaxed font-medium">Your entire service infrastructure online in minutes. Built for speed, scaled for growth.</p>
-                    </div>
+        </div>
 
-                    <div class="group p-10 rounded-[3rem] bg-[#f8fafc] border border-slate-100 transition-all hover:bg-white hover:shadow-2xl hover:shadow-slate-200/50">
-                        <div class="w-14 h-14 rounded-2xl bg-brand-500 flex items-center justify-center text-xl mb-8 group-hover:scale-110 transition-transform shadow-lg shadow-brand-500/20">
-                            <span class="text-white">📅</span>
-                        </div>
-                        <h3 class="text-2xl font-black tracking-tight mb-4 text-slate-900">Sync Logic</h3>
-                        <p class="text-slate-500 leading-relaxed font-medium">Intelligent timezone handling and real-time buffer calculation for surgical scheduling.</p>
-                    </div>
+    </header>
 
-                    <div class="group p-10 rounded-[3rem] bg-[#f8fafc] border border-slate-100 transition-all hover:bg-white hover:shadow-2xl hover:shadow-slate-200/50">
-                        <div class="w-14 h-14 rounded-2xl bg-indigo-500 flex items-center justify-center text-xl mb-8 group-hover:scale-110 transition-transform shadow-lg shadow-indigo-500/20">
-                            <span class="text-white">💎</span>
-                        </div>
-                        <h3 class="text-2xl font-black tracking-tight mb-4 text-slate-900">Luxury Tier UI</h3>
-                        <p class="text-slate-500 leading-relaxed font-medium">A visual experience designed to reflect the premium nature of your professional services.</p>
-                    </div>
+    <!-- Hero -->
+    <section class="relative pt-44 pb-32">
 
-                </div>
-            </div>
-        </section>
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
 
-        <footer class="bg-white border-t border-slate-100 py-24">
-            <div class="max-w-7xl mx-auto px-6 lg:px-8">
-                <div class="flex flex-col md:flex-row justify-between items-start gap-12">
-                    <div class="space-y-6">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-2xl bg-slate-900 flex items-center justify-center">
-                                <span class="text-white font-black text-sm">B</span>
-                            </div>
-                            <span class="font-heading font-black text-2xl text-slate-900 tracking-tighter uppercase">BioHub</span>
-                        </div>
-                        <p class="text-slate-400 font-bold text-xs max-w-xs uppercase tracking-widest leading-loose">
-                            Redefining the service operating system for the next generation of providers.
-                        </p>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-16">
-                        <div class="space-y-4">
-                            <p class="text-[10px] font-black text-slate-900 uppercase tracking-widest">Product</p>
-                            <div class="flex flex-col gap-3 text-xs font-bold text-slate-400 uppercase tracking-widest">
-                                <a href="#" class="hover:text-brand-500">Analytics</a>
-                                <a href="#" class="hover:text-brand-500">Security</a>
-                            </div>
-                        </div>
-                        <div class="space-y-4">
-                            <p class="text-[10px] font-black text-slate-900 uppercase tracking-widest">Legal</p>
-                            <div class="flex flex-col gap-3 text-xs font-bold text-slate-400 uppercase tracking-widest">
-                                <a href="#" class="hover:text-brand-500 transition-colors">Privacy</a>
-                                <a href="#" class="hover:text-brand-500 transition-colors">Terms</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-24 pt-8 border-t border-slate-50 flex justify-between items-center">
-                    <p class="text-[10px] font-black text-slate-300 tracking-[0.3em] uppercase">&copy; 2026 BIO-HUB OS</p>
-                    <div class="flex gap-4">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+
+                <!-- Left -->
+                <div>
+
+                    <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white shadow-md mb-8 border border-slate-100">
+
                         <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">All Systems Operational</span>
-                    </div>
-                </div>
-            </div>
-        </footer>
 
-    </body>
+                        <span class="text-xs font-bold tracking-widest uppercase text-blue-600">
+                            Trusted Service Platform
+                        </span>
+
+                    </div>
+
+                    <h1 class="heading-font text-6xl lg:text-8xl font-black leading-[0.95] tracking-tight mb-8">
+
+                        Book Trusted
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+                            Services
+                        </span>
+                        At Your Doorstep
+
+                    </h1>
+
+                    <p class="text-lg text-slate-500 leading-relaxed max-w-xl mb-10">
+
+                        Find verified professionals for home cleaning, plumbing,
+                        electrical work, beauty services, repairs, and more —
+                        all in one modern platform.
+
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-5">
+
+                        <a href="{{ route('register') }}"
+                           class="px-10 py-5 rounded-3xl bg-slate-900 text-white font-bold shadow-2xl hover:-translate-y-1 hover:scale-105 transition-all">
+
+                            Book Service
+
+                        </a>
+
+                        <a href="#services"
+                           class="px-10 py-5 rounded-3xl bg-white border border-slate-200 font-bold hover:bg-slate-50 transition-all">
+
+                            Explore Services
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <!-- Right -->
+                <div class="relative animate-float">
+
+                    <div class="rounded-[40px] p-5 bg-white shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] border border-slate-100">
+
+                        <div class="rounded-[30px] overflow-hidden">
+
+                            <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1400&auto=format&fit=crop"
+                                 class="w-full h-[550px] object-cover">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Stats -->
+    <section class="pb-28">
+
+        <div class="max-w-6xl mx-auto px-6">
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+
+                <div class="glass rounded-3xl p-8 shadow-xl border border-white/20">
+                    <h2 class="text-5xl font-black text-blue-600">5K+</h2>
+                    <p class="mt-3 text-slate-500 font-medium">Bookings</p>
+                </div>
+
+                <div class="glass rounded-3xl p-8 shadow-xl border border-white/20">
+                    <h2 class="text-5xl font-black text-blue-600">1K+</h2>
+                    <p class="mt-3 text-slate-500 font-medium">Providers</p>
+                </div>
+
+                <div class="glass rounded-3xl p-8 shadow-xl border border-white/20">
+                    <h2 class="text-5xl font-black text-blue-600">98%</h2>
+                    <p class="mt-3 text-slate-500 font-medium">Customer Satisfaction</p>
+                </div>
+
+                <div class="glass rounded-3xl p-8 shadow-xl border border-white/20">
+                    <h2 class="text-5xl font-black text-blue-600">24/7</h2>
+                    <p class="mt-3 text-slate-500 font-medium">Support</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="py-28 bg-white">
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+            <div class="text-center mb-20">
+
+                <h2 class="heading-font text-5xl font-black mb-6">
+                    Popular Services
+                </h2>
+
+                <p class="text-slate-500 text-lg">
+                    Everything you need for your home and lifestyle.
+                </p>
+
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+                <!-- Card -->
+                <!-- Card -->
+<div class="bg-white rounded-[32px] overflow-hidden shadow-xl hover:-translate-y-2 transition-all duration-300 border border-slate-100">
+
+    <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1200"
+         class="w-full h-60 object-cover">
+
+    <div class="p-8">
+
+        <div class="flex items-center justify-between mb-4">
+
+            <h3 class="text-2xl font-black">
+                Home Cleaning
+            </h3>
+
+            <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-xs font-bold">
+                Popular
+            </span>
+
+        </div>
+
+        <p class="text-slate-500 leading-relaxed mb-6">
+            Professional deep cleaning services for apartments,
+            villas, and offices.
+        </p>
+
+        <a href="{{ route('customer.providers') }}"
+           class="block text-center w-full py-4 rounded-2xl bg-slate-900 text-white font-bold hover:bg-black transition">
+            Book Now
+        </a>
+
+    </div>
+
+</div>
+
+<!-- Card -->
+<div class="bg-white rounded-[32px] overflow-hidden shadow-xl hover:-translate-y-2 transition-all duration-300 border border-slate-100">
+
+    <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=1200"
+         class="w-full h-60 object-cover">
+
+    <div class="p-8">
+
+        <div class="flex items-center justify-between mb-4">
+
+            <h3 class="text-2xl font-black">
+                Plumbing
+            </h3>
+
+            <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-600 text-xs font-bold">
+                Fast
+            </span>
+
+        </div>
+
+        <p class="text-slate-500 leading-relaxed mb-6">
+            Expert plumbers for repairs, fittings,
+            leak fixing, and maintenance.
+        </p>
+
+        <a href="{{ route('customer.providers') }}"
+           class="block text-center w-full py-4 rounded-2xl bg-slate-900 text-white font-bold hover:bg-black transition">
+            Book Now
+        </a>
+
+    </div>
+
+</div>
+
+<!-- Card -->
+<div class="bg-white rounded-[32px] overflow-hidden shadow-xl hover:-translate-y-2 transition-all duration-300 border border-slate-100">
+
+    <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1200"
+         class="w-full h-60 object-cover">
+
+    <div class="p-8">
+
+        <div class="flex items-center justify-between mb-4">
+
+            <h3 class="text-2xl font-black">
+                Beauty & Spa
+            </h3>
+
+            <span class="px-3 py-1 rounded-full bg-pink-100 text-pink-600 text-xs font-bold">
+                Premium
+            </span>
+
+        </div>
+
+        <p class="text-slate-500 leading-relaxed mb-6">
+            Salon and beauty professionals available at your convenience.
+        </p>
+
+        <a href="{{ route('customer.providers') }}"
+           class="block text-center w-full py-4 rounded-2xl bg-slate-900 text-white font-bold hover:bg-black transition">
+            Book Now
+        </a>
+
+    </div>
+
+</div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="py-32">
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+            <div class="grid md:grid-cols-3 gap-10">
+
+                <div class="glass rounded-[32px] p-10 shadow-xl">
+
+                    <div class="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center text-white text-2xl mb-8">
+                        ⚡
+                    </div>
+
+                    <h3 class="text-3xl font-black mb-4">
+                        Instant Booking
+                    </h3>
+
+                    <p class="text-slate-500 leading-relaxed">
+                        Book trusted service providers instantly with
+                        real-time availability.
+                    </p>
+
+                </div>
+
+                <div class="glass rounded-[32px] p-10 shadow-xl">
+
+                    <div class="w-16 h-16 rounded-2xl bg-indigo-600 flex items-center justify-center text-white text-2xl mb-8">
+                        📅
+                    </div>
+
+                    <h3 class="text-3xl font-black mb-4">
+                        Smart Scheduling
+                    </h3>
+
+                    <p class="text-slate-500 leading-relaxed">
+                        Intelligent scheduling system with conflict prevention.
+                    </p>
+
+                </div>
+
+                <div class="glass rounded-[32px] p-10 shadow-xl">
+
+                    <div class="w-16 h-16 rounded-2xl bg-emerald-600 flex items-center justify-center text-white text-2xl mb-8">
+                        🔒
+                    </div>
+
+                    <h3 class="text-3xl font-black mb-4">
+                        Secure Platform
+                    </h3>
+
+                    <p class="text-slate-500 leading-relaxed">
+                        Role-based authentication and protected booking system.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Reviews -->
+    <section id="reviews" class="py-32 bg-white">
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+            <div class="text-center mb-20">
+
+                <h2 class="heading-font text-5xl font-black mb-5">
+                    Loved By Customers
+                </h2>
+
+                <p class="text-slate-500 text-lg">
+                    Trusted by thousands of users.
+                </p>
+
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-10">
+
+                <div class="p-10 rounded-[32px] border border-slate-100 shadow-xl">
+
+                    <div class="flex gap-1 text-yellow-400 text-xl mb-6">
+                        ★★★★★
+                    </div>
+
+                    <p class="text-slate-500 leading-relaxed mb-8">
+                        “Amazing platform. Booking a plumber took less than 2 minutes.”
+                    </p>
+
+                    <div>
+                        <h4 class="font-black">Rahul Sharma</h4>
+                        <p class="text-sm text-slate-400">Customer</p>
+                    </div>
+
+                </div>
+
+                <div class="p-10 rounded-[32px] border border-slate-100 shadow-xl">
+
+                    <div class="flex gap-1 text-yellow-400 text-xl mb-6">
+                        ★★★★★
+                    </div>
+
+                    <p class="text-slate-500 leading-relaxed mb-8">
+                        “Beautiful UI and smooth booking experience.”
+                    </p>
+
+                    <div>
+                        <h4 class="font-black">Priya</h4>
+                        <p class="text-sm text-slate-400">Customer</p>
+                    </div>
+
+                </div>
+
+                <div class="p-10 rounded-[32px] border border-slate-100 shadow-xl">
+
+                    <div class="flex gap-1 text-yellow-400 text-xl mb-6">
+                        ★★★★★
+                    </div>
+
+                    <p class="text-slate-500 leading-relaxed mb-8">
+                        “Very professional service providers and easy scheduling.”
+                    </p>
+
+                    <div>
+                        <h4 class="font-black">Karthik</h4>
+                        <p class="text-sm text-slate-400">Customer</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- CTA -->
+    <section class="py-32">
+
+        <div class="max-w-5xl mx-auto px-6">
+
+            <div class="rounded-[40px] bg-gradient-to-r from-slate-900 to-blue-900 p-16 text-center text-white shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)]">
+
+                <h2 class="heading-font text-5xl font-black mb-6">
+                    Ready To Get Started?
+                </h2>
+
+                <p class="text-slate-300 text-lg mb-10">
+                    Join thousands of customers and providers using DoorStep.
+                </p>
+
+                <a href="{{ route('register') }}"
+                   class="inline-flex px-10 py-5 rounded-3xl bg-white text-slate-900 font-black hover:scale-105 transition-all">
+                    Create Account
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 border-t border-slate-200 bg-white">
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+
+                <div class="flex items-center gap-3">
+
+                    <div class="w-10 h-10 rounded-2xl bg-slate-900 flex items-center justify-center">
+                        <span class="text-white font-black">D</span>
+                    </div>
+
+                    <h2 class="heading-font text-2xl font-black">
+                        DoorStep
+                    </h2>
+
+                </div>
+
+                <p class="text-slate-400 text-sm text-center">
+                    © 2026 DoorStep. All rights reserved.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
 </html>

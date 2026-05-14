@@ -5,11 +5,11 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center gap-3">
-                    <a href="{{ route('dashboard') }}" class="flex items-center gap-2 group">
+                    <a href="{{ route('welcome') }}" class="flex items-center gap-2 group">
                         <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
-                            <span class="text-white font-bold text-lg font-heading">B</span>
+                            <span class="text-white font-bold text-lg font-heading">D</span>
                         </div>
-                        <span class="font-heading font-bold text-lg tracking-tight text-black group-hover:text-primary transition-colors">Bio-Hub</span>
+                        <span class="font-heading font-bold text-lg tracking-tight text-black group-hover:text-primary transition-colors">DoorStep</span>
                     </a>
                 </div>
 

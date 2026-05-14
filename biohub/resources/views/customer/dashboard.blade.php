@@ -1,18 +1,18 @@
 <x-app-layout>
-    <div class="flex min-h-screen bg-[#f3f6ff] font-sans text-slate-900">
+   <div class="flex h-screen bg-[#f3f6ff] font-sans text-slate-900">
         
         {{-- Sidebar: Customer Navigation --}}
-        <aside class="hidden lg:flex flex-col w-72 bg-brand-500 text-white rounded-r-[3rem] my-4 ml-4 shadow-2xl relative overflow-hidden">
-            <div class="p-8 relative z-10 flex flex-col h-full">
+        <aside class="hidden lg:flex flex-col w-64 bg-brand-500 text-white rounded-r-[3rem] my-4 ml-4 shadow-2xl relative overflow-hidden">
+            <div class="p-8 relative z-10 flex flex-col">
                 {{-- Logo --}}
                 <div class="flex items-center gap-3 mb-12">
                     <div class="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-lg">
-                        <span class="text-brand-600 font-black text-xl italic">B</span>
+                        <span class="text-brand-600 font-black text-xl italic">D</span>
                     </div>
-                    <span class="font-black text-2xl tracking-tighter italic uppercase">BIOHUB</span>
+                    <span class="font-black text-2xl tracking-tighter italic uppercase">DoorStep</span>
                 </div>
 
-                <nav class="space-y-3 flex-1">
+                <nav class="space-y-3 ">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-4 px-6 py-4 bg-white/15 rounded-2xl font-bold shadow-inner border border-white/10">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                         Dashboard
@@ -26,11 +26,28 @@
                         My Bookings
                     </a>
 
-                    {{-- NEW: Profile Routing --}}
-                    <a href="{{ route('customer.profile.edit') }}" class="flex items-center gap-4 px-6 py-4 hover:bg-white/10 rounded-2xl font-semibold transition-all group">
-                        <svg class="w-5 h-5 text-white/70 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                        Settings
-                    </a>
+                    <div class="mt-8 pt-6 border-t border-white/10">
+
+    <a href="{{ route('customer.profile.edit') }}"
+       class="flex items-center gap-4 px-6 py-4 hover:bg-white/10 rounded-2xl font-semibold transition-all group">
+
+        <svg class="w-5 h-5 text-white/70 group-hover:text-white"
+             fill="none"
+             stroke="currentColor"
+             viewBox="0 0 24 24">
+
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l.7 2.153a1 1 0 00.95.69h2.262c.969 0 1.371 1.24.588 1.81l-1.83 1.33a1 1 0 00-.364 1.118l.7 2.153c.3.921-.755 1.688-1.54 1.118l-1.83-1.33a1 1 0 00-1.176 0l-1.83 1.33c-.784.57-1.838-.197-1.539-1.118l.7-2.153a1 1 0 00-.364-1.118l-1.83-1.33c-.783-.57-.38-1.81.588-1.81h2.262a1 1 0 00.95-.69l.7-2.153z"/>
+
+        </svg>
+
+        Settings
+
+    </a>
+
+</div>
                 </nav>
             </div>
         </aside>
